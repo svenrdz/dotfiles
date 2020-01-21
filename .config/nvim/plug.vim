@@ -51,7 +51,8 @@ Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 
 " Vim defaults
-"" Plug 'tpope/vim-sensible'
+" Plug 'tpope/vim-sensible'
+Plug 'cs/alternate-file.vim'
 
 " fzf for vim so so so so powerful
 Plug '/usr/local/opt/fzf'

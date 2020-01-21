@@ -45,6 +45,8 @@ set sidescrolloff=15
 set switchbuf=usetab
 set hidden
 set wrap linebreak
+set textwidth=0
+set wrapmargin=0
 set showbreak=" "
 set wildmode=longest,full
 set number relativenumber
