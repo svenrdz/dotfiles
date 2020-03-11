@@ -105,5 +105,5 @@ export VISION_DEBUG_LEVEL='200'
 if [ -f '$HOME/Pandascore/google-cloud-sdk/path.zsh.inc' ]; then source '$HOME/Pandascore/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '$HOME/Pandascore/google-cloud-sdk/completion.zsh.inc' ]; then source '#HOME/Pandascore/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '$HOME/Pandascore/google-cloud-sdk/completion.zsh.inc' ]; then source '$HOME/Pandascore/google-cloud-sdk/completion.zsh.inc'; fi
 
