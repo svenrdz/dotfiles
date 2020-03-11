@@ -50,6 +50,7 @@ augroup END
 " TAB completion done right (with snips) "
 """"""""""""""""""""""""""""""""""""""""""
 
+let g:SuperTabClosePreviewOnPopupClose = 1
 " Don't map any tabs, I'll do it later "
 let g:UltiSnipsExpandTrigger = '<NOP>'
 let g:UltiSnipsJumpForwardTrigger = '<NOP>'
@@ -194,17 +195,11 @@ let g:gitgutter_highlight_linenrs = 1
 
 
 """"""""""""""""""""""""""""""""""""""""""
-"             undotree config            "
-""""""""""""""""""""""""""""""""""""""""""
-
-let g:undotree_ShortIndicators = 1
-
-
-""""""""""""""""""""""""""""""""""""""""""
 "            gutentags config            "
 """"""""""""""""""""""""""""""""""""""""""
 
 let g:gutentags_cache_dir = '~/.config/nvim/gutentags'
+
 
 """"""""""""""""""""""""""""""""""""""""""
 "             vim-json config            "
@@ -220,3 +215,10 @@ augroup json_autocmd
   autocmd FileType json set expandtab
   autocmd FileType json set foldmethod=syntax
 augroup END
+
+
+""""""""""""""""""""""""""""""""""""""""""
+"             vim-json config            "
+""""""""""""""""""""""""""""""""""""""""""
+
+let g:AutoPairsFlyMode = 1

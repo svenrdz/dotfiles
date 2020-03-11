@@ -5,6 +5,7 @@ nmap <Leader><CR> :exe 'cd '.expand('%:h')<CR>
 nmap <Leader>n <Esc>:split<CR>
 nmap <Leader>v <Esc>:vsplit<CR>
 nmap <Leader>f <Esc>:Files<CR>
+nmap <Leader>p <Esc>:ProjectFiles<CR>
 nmap <Leader>h <Esc>:History<CR>
 nmap <Leader>: <Esc>:History:<CR>
 nmap <Leader>/ <Esc>:History/<CR>
@@ -16,9 +17,9 @@ nmap <Leader>b <Esc>:Buffers<CR>
 nmap <Leader>ev <Esc>:BufExplorerVerticalSplit<CR>
 nmap <Leader>en <Esc>:BufExplorerHorizontalSplit<CR>
 nmap <Leader>q <Esc>:Bclose<CR>
+nmap <Leader>zz <Esc>:let &scrolloff = 999 - &scrolloff<CR>
 nmap <C-x> <Esc>:VimwikiToggleListItem<CR>
 nmap <C-f> <Esc>:BLines<CR>
-nmap <C-p> <Esc>:ProjectFiles<CR>
 nmap ga <Esc>:GitGutterStageHunk<CR>
 nmap gu <Esc>:GitGutterUndoHunk<CR>
 nmap gv <Esc>:GitGutterPreviewHunk<CR>
@@ -83,5 +84,7 @@ fun! SetupCommandAlias(from, to)
 endfun
 call SetupCommandAlias("W", "w")
 call SetupCommandAlias("cdp", "cd ~/Pandascore/pandavision/pndvsn")
+call SetupCommandAlias("cdr", "cd ~/Pandascore/tools/ramen")
+call SetupCommandAlias("cdg", "cd `git rev-parse --show-toplevel`")
 call SetupCommandAlias("julab", "call LoadOrReload('julab')")
 call SetupCommandAlias("psco", "call LoadOrReload('psco')")

@@ -39,7 +39,7 @@ set splitbelow
 set laststatus=2
 set showtabline=2
 set cursorline
-set scrolloff=8
+set scrolloff=0
 set sidescroll=1
 set sidescrolloff=15
 set switchbuf=usetab
@@ -110,6 +110,7 @@ set nobackup
 autocmd filetype python set expandtab
 autocmd BufRead,BufNewFile *.py set iskeyword+=_
 autocmd BufRead,BufNewFile *.py ab pdb __import__("pdb").set_trace()
+autocmd BufRead,BufNewFile *.py ab ipd __import__("ipdb").set_trace()
 
 " Spell
 autocmd BufRead,BufNewFile *.md setlocal spell spelllang=en

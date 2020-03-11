@@ -5,6 +5,8 @@ endif
 
 call plug#begin()
 
+Plug 'tpope/vim-sensible'
+
 " Colorscheme
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
 
@@ -51,7 +53,6 @@ Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 
 " Vim defaults
-" Plug 'tpope/vim-sensible'
 Plug 'cs/alternate-file.vim'
 
 " fzf for vim so so so so powerful
@@ -72,7 +73,7 @@ command! -bar Blac Black
 command! -bar FixJsonComma %s/,\(\n *[}|\]]\)/\1/g
 command! -bar FixJsonSpaces %s/    /  /g
 command! Json Blac|FixJsonComma|FixJsonSpaces|noh
-Plug 'elzr/vim-json'
+Plug 'elzr/vim-json', { 'for' : 'json' }
 
 " Preview markdown filesin browser using :Markdown
 Plug 'iamcco/markdown-preview.vim', { 'for' : 'markdown' }
