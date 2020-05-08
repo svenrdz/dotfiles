@@ -1,9 +1,27 @@
 ## general variables
 export HOMEBREW_NO_AUTO_UPDATE=1
-export PATH="/usr/local/lib/ruby/gems/2.5.0/bin:$PATH"
+# export PATH="/usr/local/lib/ruby/gems/2.5.0/bin:$PATH"
 export EDITOR='/usr/local/bin/nvim'
 export VISUAL='NVIM_LISTEN_ADDRESS=127.0.0.1:32500 nvr --remote-tab-silent'
 export GPG_TTY=$(tty)
+
+# WSL nvim setup
+if [[ -a $WSLENV ]]; then
+  export NEOVIM_WIN_DIR='/mnt/c/tools/neovim/Neovim'
+  export PATH="$NEOVIM_WIN_DIR/bin:$PATH"
+fi
+
+# pyenv setup
+export PYENV_ROOT="$HOME/.pyenv"
+if [[ -e $PYENV_ROOT ]]; then
+  export PATH="$PYENV_ROOT/bin:$PATH"
+  if [[ -a $MAIN_VENV ]]; then
+    source $HOME/.pyenv/versions/$MAIN_VENV/bin/activate
+  fi
+fi
+
+eval "$(pyenv init -)"
+
 
 ## zsh variables
 export ZSH_THEME=""
@@ -34,6 +52,7 @@ export __fzf_fasd_default_completion=$fzf_default_completion
 
 ## zsh binds
 # forward through suggestion with <C-N>
+bindkey "^B" backward-kill-word
 bindkey "^N" forward-word
 # fzf completion with <C-V>
 bindkey '^V' fzf-completion
@@ -71,3 +90,9 @@ function git-branch-current {
   fi
 }
 
+# autocompletions
+autoload -U bashcompinit
+bashcompinit
+eval "$(register-python-argcomplete pipx)"
+
+cd $HOME

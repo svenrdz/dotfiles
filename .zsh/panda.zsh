@@ -46,26 +46,28 @@ deploy_model() {
 }
 
 ## kubernetes
-source ~/Pandascore/tools/env_gcloud
-alias k='kubectl'
-alias kl='kubectl logs -f'
-alias klp='kubectl logs -f --context=prod'
-alias kme='watch -t -c -n .3 "kubectl get pods -o wide -l \"chart in (market-engine-deployer-0.0.1,market-engine-live-0.0.1,prematch-market-engine-0.0.1,poe-0.0.1)\" | kcolors";'
-kks() { kubectl scale --replicas=0 --all deploy $1 && kubectl scale --replicas=1 --all deploy $1 }
-function kpw() {
-  if [ -z $2 ]; then
-    context=dev
-  else
-    context=$2
-  fi
-  watch -t -c -n .3 "kubectl get pod -o wide --context=$context | grep "$1" | kcolors"
-}
-function kubectl() {
-  if ! type __start_kubectl >/dev/null 2>&1; then
-    source <(command kubectl completion zsh)
-  fi
-  command kubectl "$@"
-}
+if [[ -e $HOME/Pandascore/tools/env_gcloud ]]; then
+  source $HOME/Pandascore/tools/env_gcloud
+  alias k='kubectl'
+  alias kl='kubectl logs -f'
+  alias klp='kubectl logs -f --context=prod'
+  alias kme='watch -t -c -n .3 "kubectl get pods -o wide -l \"chart in (market-engine-deployer-0.0.1,market-engine-live-0.0.1,prematch-market-engine-0.0.1,poe-0.0.1)\" | kcolors";'
+  kks() { kubectl scale --replicas=0 --all deploy $1 && kubectl scale --replicas=1 --all deploy $1 }
+  function kpw() {
+    if [ -z $2 ]; then
+      context=dev
+    else
+      context=$2
+    fi
+    watch -t -c -n .3 "kubectl get pod -o wide --context=$context | grep "$1" | kcolors"
+  }
+  function kubectl() {
+    if ! type __start_kubectl >/dev/null 2>&1; then
+      source <(command kubectl completion zsh)
+    fi
+    command kubectl "$@"
+  }
+fi
 
 
 ## postgres
@@ -97,12 +99,11 @@ trigger_pce () {
 }
 
 ## panda utils (penv/pwake/psleep)
-source /Users/sven/.panda-utils/scripts/source.sh
+if [[ -e $HOME/.panda-utils ]]; then
+  source $HOME/.panda-utils/scripts/source.sh
+fi
 
 ## monocle/ramen autocompletion
-autoload -U bashcompinit
-bashcompinit
-eval "$(register-python-argcomplete monocle)"
 eval "$(register-python-argcomplete ramen)"
 
 ## pandavision debug level

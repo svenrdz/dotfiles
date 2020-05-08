@@ -131,7 +131,7 @@ set listchars=tab:>.,trail:.,extends:#,nbsp:.
 colorscheme snazzy
 hi Normal ctermbg=NONE guibg=NONE
 set mouse=a
-set clipboard=unnamed
+set clipboard=unnamedplus
 
 " let g:AutoPairsFlyMode = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
@@ -167,4 +167,21 @@ source $HOME/.config/nvim/plug.vim
 " allow opening file in current neovim instance from terminal
 if has('nvim')
   let $GIT_EDITOR = 'nvr -cc split --remote-wait'
+endif
+
+if has('wsl')
+  let s:win32yank = '$NEOVIM_WIN_DIR/bin/win32yank.exe'
+  let g:clipboard = {
+        \  'name' : 'wsl',
+        \  'copy' : {
+        \    '+' : s:win32yank..' -i --crlf',
+        \    '*' : s:win32yank..' -i --crlf',
+        \  },
+        \  'paste' : {
+        \    '+' : s:win32yank..' -o --lf',
+        \    '*' : s:win32yank..' -o --lf',
+        \  },
+        \}
+  unlet s:win32yank
+  }
 endif
