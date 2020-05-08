@@ -38,6 +38,7 @@ alias cdx='cd $HOME/Pandascore/models/xp_runner/'
 alias cd.='cd ..'
 
 ## ls
+alias l='ls'
 alias la='ls -a'
 alias ll='ls -l'
 alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'' | less'

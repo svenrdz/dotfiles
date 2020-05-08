@@ -31,7 +31,7 @@ mkdataset() {
     return
   fi
   N_CLASSES=$(expr $(jq '. | length' "${CLASSESJSON}") - 1)
-  eval "mkdir -p "${DSETNAME}"/{train,test}/inputs/{0..${N_CLASSES}}"
+  mkdir -p ${DSETNAME}/{train,test}/inputs/{0..${N_CLASSES}}
   cp ${CLASSESJSON} ${DSETNAME}/train
   cp ${CLASSESJSON} ${DSETNAME}/test
 }
@@ -104,7 +104,7 @@ if [[ -e $HOME/.panda-utils ]]; then
 fi
 
 ## monocle/ramen autocompletion
-eval "$(register-python-argcomplete ramen)"
+eval $(register-python-argcomplete ramen)
 
 ## pandavision debug level
 export VISION_DEBUG_LEVEL='200'

@@ -17,10 +17,12 @@ if [[ -e $PYENV_ROOT ]]; then
   export PATH="$PYENV_ROOT/bin:$PATH"
   eval "$(pyenv init -)"
   eval "$(pyenv virtualenv-init -)"
-  if [[ -n $MAIN_VENV ]]; then
+  if [[ -n $MAIN_VENV && $(pyenv version | sed 's/\s.*//') != $MAIN_VENV ]]; then
     pyenv activate $MAIN_VENV
   fi
 fi
+
+eval $(thefuck --alias)
 
 ## zsh variables
 export ZSH_THEME=""
@@ -92,6 +94,6 @@ function git-branch-current {
 # autocompletions
 autoload -U bashcompinit
 bashcompinit
-eval "$(register-python-argcomplete pipx)"
+eval $(register-python-argcomplete pipx)
 
 cd $HOME
