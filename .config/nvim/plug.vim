@@ -1,6 +1,6 @@
 " Load vim-plug
-if empty(glob("$HOME/.config/nvim/autoload/plug.vim"))
-    execute '!curl -fLo $HOME/.config/nvim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+if empty(glob($HOME.'/.config/nvim/autoload/plug.vim'))
+    execute '!curl -fLo '.$HOME.'/.config/nvim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
 endif
 
 call plug#begin()
@@ -65,7 +65,7 @@ Plug 'majutsushi/tagbar', { 'for' : 'python' }
 " Plug 'ludovicchabant/vim-gutentags'
 Plug 'tmhedberg/SimpylFold', { 'for' : 'python' }
 Plug 'ambv/black'
-let g:black_virtualenv = '/Users/sven/virtualenvs/panda36/'
+let g:black_virtualenv = $HOME.'/virtualenvs/panda36/'
 let g:black_linelength = 80
 command! -bar Blac Black
 command! -bar FixJsonComma %s/,\(\n *[}|\]]\)/\1/g
@@ -84,7 +84,6 @@ Plug 'iamcco/markdown-preview.vim', { 'for' : 'markdown' }
 " Automatic smart completion
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_smart_case = 1
 " Completion sources
 Plug 'Shougo/neco-vim'
 Plug 'Shougo/neco-syntax'

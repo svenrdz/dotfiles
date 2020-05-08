@@ -102,7 +102,7 @@ set foldmethod=syntax
 set foldlevel=3
 set foldlevelstart=3
 let g:vimwiki_folding='list'
-let g:python3_host_prog = '$HOME/.pyenv/versions/$MAIN_VENV/bin/python3'
+let g:python3_host_prog = $HOME.'/.pyenv/versions/'.$MAIN_VENV.'/bin/python3'
 set t_Co=256
 set copyindent    " copy the previous indentation on autoindenting
 set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
@@ -168,21 +168,6 @@ source $HOME/.config/nvim/plug.vim
 
 " allow opening file in current neovim instance from terminal
 if has('nvim')
-  let $GIT_EDITOR = 'nvr -cc split --remote-wait'
-endif
-
-if has('wsl')
-  let s:win32yank = '$NEOVIM_WIN_DIR/bin/win32yank.exe'
-  let g:clipboard = {
-        \  'name' : 'wsl',
-        \  'copy' : {
-        \    '+' : s:win32yank..' -i --crlf',
-        \    '*' : s:win32yank..' -i --crlf',
-        \  },
-        \  'paste' : {
-        \    '+' : s:win32yank..' -o --lf',
-        \    '*' : s:win32yank..' -o --lf',
-        \  },
-        \}
-  unlet s:win32yank
+  let $GIT_EDITOR = 'nvr --remote-wait'
+  " let $GIT_EDITOR = 'nvr -cc split --remote-wait'
 endif
