@@ -6,7 +6,7 @@ export VISUAL='NVIM_LISTEN_ADDRESS=127.0.0.1:32500 nvr --remote-tab-silent'
 export GPG_TTY=$(tty)
 
 # WSL nvim setup
-if [[ -a $WSLENV ]]; then
+if [[ -n $WSLENV ]]; then
   export NEOVIM_WIN_DIR='/mnt/c/tools/neovim/Neovim'
   export PATH="$NEOVIM_WIN_DIR/bin:$PATH"
 fi
@@ -15,13 +15,12 @@ fi
 export PYENV_ROOT="$HOME/.pyenv"
 if [[ -e $PYENV_ROOT ]]; then
   export PATH="$PYENV_ROOT/bin:$PATH"
-  if [[ -a $MAIN_VENV ]]; then
-    source $HOME/.pyenv/versions/$MAIN_VENV/bin/activate
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+  if [[ -n $MAIN_VENV ]]; then
+    pyenv activate $MAIN_VENV
   fi
 fi
-
-eval "$(pyenv init -)"
-
 
 ## zsh variables
 export ZSH_THEME=""
@@ -29,7 +28,7 @@ export ZGEN_AUTOLOAD_COMPINIT=0
 export ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd)
 export HISTSIZE=10000
 export SAVEHIST=10000
-export HISTFILE=~/.zhistory
+export HISTFILE=$HOME/.zhistory
 
 ## OPTIONS
 # append into history file

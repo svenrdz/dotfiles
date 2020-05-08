@@ -1,6 +1,6 @@
 " Load vim-plug
-if empty(glob("~/.config/nvim/autoload/plug.vim"))
-    execute '!curl -fLo ~/.config/nvim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+if empty(glob("$HOME/.config/nvim/autoload/plug.vim"))
+    execute '!curl -fLo $HOME/.config/nvim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
 endif
 
 call plug#begin()
@@ -54,7 +54,7 @@ Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 
 " fzf for vim so so so so powerful
-Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 " improve /-search

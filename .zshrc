@@ -1,5 +1,5 @@
-ZSH_DEBUG=false
-if [[ $ZSH_DEBUG == true ]]; then
+# ZSH_DEBUG=true
+if [[ -n $ZSH_DEBUG ]]; then
   zmodload zsh/zprof
 fi
 
@@ -28,13 +28,15 @@ if ! zgen saved; then
 fi
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
 
-for rcfile in ~/.zsh/*.zsh; do
-  source $rcfile
+rcfiles=( env.local.zsh config.zsh jira.zsh panda.zsh alias.zsh )
+for rcfile in $rcfiles; do
+  rcfile=$HOME/.zsh/$rcfile
+  test -e $rcfile && source $rcfile
 done
 
-if [[ $ZSH_DEBUG == true ]]; then
+if [[ -n $ZSH_DEBUG ]]; then
   zprof
 fi
 

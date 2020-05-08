@@ -32,9 +32,9 @@ alias ptp=ptpython
 
 ## cd
 alias cdg='cd `git rev-parse --show-toplevel`'
-alias cdr='cd ~/Pandascore/tools/ramen/'
-alias cdp='cd ~/Pandascore/pandavision/pndvsn'
-alias cdx='cd ~/Pandascore/models/xp_runner/'
+alias cdr='cd $HOME/Pandascore/tools/ramen/'
+alias cdp='cd $HOME/Pandascore/pandavision/pndvsn'
+alias cdx='cd $HOME/Pandascore/models/xp_runner/'
 alias cd.='cd ..'
 
 ## ls

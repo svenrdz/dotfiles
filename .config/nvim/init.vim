@@ -26,7 +26,7 @@ set fileformats+=mac
 set history=1000         " remember more commands and search history
 set undolevels=100       " use less levels of undo
 set undoreload=1000      " use less levels of reload
-set undodir=~/.config/nvim/undodir
+set undodir=$HOME/.config/nvim/undodir
 set updatetime=500       " defaults to 4000, better low for git gutter
 set tabpagemax=3
 set viminfo^=!
@@ -102,7 +102,7 @@ set foldmethod=syntax
 set foldlevel=3
 set foldlevelstart=3
 let g:vimwiki_folding='list'
-let g:python3_host_prog = '/Users/sven/.pyenv/versions/3.6.5/bin/python3'
+let g:python3_host_prog = '$HOME/.pyenv/versions/$MAIN_VENV/bin/python3'
 set t_Co=256
 set copyindent    " copy the previous indentation on autoindenting
 set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
@@ -185,5 +185,4 @@ if has('wsl')
         \  },
         \}
   unlet s:win32yank
-  }
 endif
