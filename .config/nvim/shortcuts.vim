@@ -18,6 +18,7 @@ nmap <Leader>ev <Esc>:BufExplorerVerticalSplit<CR>
 nmap <Leader>en <Esc>:BufExplorerHorizontalSplit<CR>
 nmap <Leader>q <Esc>:Bclose<CR>
 nmap <Leader>zz <Esc>:let &scrolloff = 999 - &scrolloff<CR>
+nmap <Leader>j <Esc>:tabnext<CR>
 nmap <C-x> <Esc>:VimwikiToggleListItem<CR>
 nmap <C-f> <Esc>:BLines<CR>
 nmap ga <Esc>:GitGutterStageHunk<CR>
@@ -27,6 +28,10 @@ nmap <Leader>c <Esc>:Gcommit<CR>
 nmap ]h <Esc>:GitGutterNextHunk<CR>
 nmap [h <Esc>:GitGutterPrevHunk<CR>
 
+" Nicer search
+map /  <Plug>(incsearch-stay)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-forward)
 
 " Tab navigation like Firefox.
 nnoremap J <Esc>:bnext<CR>

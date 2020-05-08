@@ -14,6 +14,7 @@ Plug 'sonph/onehalf', {'rtp': 'vim/'}
 Plug 'tpope/vim-eunuch'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'lambdalisue/battery.vim'
+Plug 'haya14busa/incsearch.vim'
 
 " Folding
 Plug 'Konfekt/FastFold'

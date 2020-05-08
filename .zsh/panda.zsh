@@ -49,9 +49,17 @@ deploy_model() {
 source ~/Pandascore/tools/env_gcloud
 alias k='kubectl'
 alias kl='kubectl logs -f'
+alias klp='kubectl logs -f --context=prod'
 alias kme='watch -t -c -n .3 "kubectl get pods -o wide -l \"chart in (market-engine-deployer-0.0.1,market-engine-live-0.0.1,prematch-market-engine-0.0.1,poe-0.0.1)\" | kcolors";'
 kks() { kubectl scale --replicas=0 --all deploy $1 && kubectl scale --replicas=1 --all deploy $1 }
-kpw() { watch -t -c -n .3 "kubectl get pod -o wide | grep "$1-" | kcolors" }
+function kpw() {
+  if [ -z $2 ]; then
+    context=dev
+  else
+    context=$2
+  fi
+  watch -t -c -n .3 "kubectl get pod -o wide --context=$context | grep "$1" | kcolors"
+}
 function kubectl() {
   if ! type __start_kubectl >/dev/null 2>&1; then
     source <(command kubectl completion zsh)
