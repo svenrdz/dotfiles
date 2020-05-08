@@ -53,9 +53,6 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 
-" Vim defaults
-Plug 'cs/alternate-file.vim'
-
 " fzf for vim so so so so powerful
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'

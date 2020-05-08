@@ -66,6 +66,8 @@ set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
 set wildignore+=*.swp,*~,._*
 set title
 
+let g:netrw_altfile = 1
+
 let g:bufExplorerDisableDefaultKeyMapping = 1
 let g:bclose_no_plugin_maps = 1
 
