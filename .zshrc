@@ -42,3 +42,5 @@ fi
 
 # Created by `userpath` on 2020-05-08 16:42:50
 export PATH="$PATH:/home/sven/.local/bin"
+
+eval $(thefuck --alias)
