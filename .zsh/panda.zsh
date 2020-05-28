@@ -102,8 +102,8 @@ source /Users/sven/.panda-utils/scripts/source.sh
 ## monocle/ramen autocompletion
 autoload -U bashcompinit
 bashcompinit
-eval "$(register-python-argcomplete monocle)"
 eval "$(register-python-argcomplete ramen)"
+eval "$(register-python-argcomplete wasabi)"
 
 ## pandavision debug level
 export VISION_DEBUG_LEVEL='200'
