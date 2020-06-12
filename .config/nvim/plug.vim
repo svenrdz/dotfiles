@@ -61,56 +61,48 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-slash'
 
 " python format
-Plug 'majutsushi/tagbar', { 'for' : 'python' }
-" Plug 'ludovicchabant/vim-gutentags'
+Plug 'majutsushi/tagbar'
+Plug 'ludovicchabant/vim-gutentags'
 Plug 'tmhedberg/SimpylFold', { 'for' : 'python' }
-Plug 'ambv/black'
-let g:black_virtualenv = $HOME.'/virtualenvs/panda36/'
+Plug 'psf/black', { 'tag': '*' }
+let g:black_virtualenv = $HOME.'/.pyenv/versions/'.$MAIN_VENV
 let g:black_linelength = 80
-command! -bar Blac Black
+command! -bar Bl Black
 command! -bar FixJsonComma %s/,\(\n *[}|\]]\)/\1/g
 command! -bar FixJsonSpaces %s/    /  /g
-command! Json Blac|FixJsonComma|FixJsonSpaces|noh
+command! Json Bl|FixJsonComma|FixJsonSpaces|noh
 Plug 'elzr/vim-json', { 'for' : 'json' }
 
 " Preview markdown filesin browser using :Markdown
 Plug 'iamcco/markdown-preview.vim', { 'for' : 'markdown' }
 
-" Code snippets engine + snippets
-" Plug 'SirVer/ultisnips'
-" Plug 'honza/vim-snippets'
-" let g:ultisnips_python_style = "numpy"
-
-" Automatic smart completion
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-let g:deoplete#enable_at_startup = 1
-" Completion sources
-Plug 'Shougo/neco-vim'
-Plug 'Shougo/neco-syntax'
-Plug 'wokalski/autocomplete-flow'
-Plug 'zchee/deoplete-jedi'
-Plug 'wellle/tmux-complete.vim'
-Plug 'thalesmello/webcomplete.vim'
-Plug 'deathlyfrantic/deoplete-spell'
-
-" vim autocorrect
-" Plug 'sedm0784/vim-you-autocorrect'
-
-" supertab
-Plug 'ervandew/supertab'
-
 " Linter and quickfix
 Plug 'dense-analysis/ale'
 
-" ipython in vim
-" Plug 'bfredl/nvim-ipy'
-" Plug 'goerz/jupytext.vim'
-" let g:jupytext_fmt = 'py:percent'
-" let g:jupytext_filetype_map = {'py': 'py'}
-" Plug 'metakirby5/codi.vim'
+
+" Autocomplete
+Plug 'Shougo/neco-vim'
+Plug 'Shougo/neco-syntax'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/asyncomplete-file.vim'
+Plug 'prabirshrestha/asyncomplete-tags.vim'
+Plug 'prabirshrestha/asyncomplete-buffer.vim'
+Plug 'prabirshrestha/asyncomplete-emoji.vim'
+Plug 'prabirshrestha/asyncomplete-necovim.vim'
+Plug 'prabirshrestha/asyncomplete-necosyntax.vim'
+Plug 'andreypopp/asyncomplete-ale.vim'
+Plug 'tsufeki/asyncomplete-fuzzy-match', {
+    \ 'do': 'cargo build --release',
+    \ }
 
 " vimwiki
 Plug 'vimwiki/vimwiki'
+
+" nim
+Plug 'alaviss/nim.nvim'
 
 " extempore
 " Plug 'timburgess/extempore.vim', { 'for' : 'extempore' }

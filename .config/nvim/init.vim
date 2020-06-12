@@ -9,6 +9,7 @@ endif
 set autoindent
 set backspace=indent,eol,start
 set complete-=i
+set completeopt+=preview
 set smarttab
 set nrformats-=octal
 set ttimeout
@@ -66,12 +67,14 @@ set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
 set wildignore+=*.swp,*~,._*
 set title
 
+source $HOME/.config/nvim/plug.vim
+source $HOME/.config/nvim/config.vim
+source $HOME/.config/nvim/shortcuts.vim
+
 let g:netrw_altfile = 1
 
 let g:bufExplorerDisableDefaultKeyMapping = 1
 let g:bclose_no_plugin_maps = 1
-
-source $HOME/.config/nvim/plug.vim
 
 function! CloseWindowOrKillBuffer()
   let number_of_windows_to_this_buffer = len(filter(range(1, winnr('$')), "winbufnr(v:val) == bufnr('%')"))
@@ -103,7 +106,11 @@ set foldlevel=3
 set foldlevelstart=3
 let g:vimwiki_folding='list'
 let g:python3_host_prog = $HOME.'/.pyenv/versions/'.$MAIN_VENV.'/bin/python3'
-set t_Co=256
+if has('wsl')
+  set t_Co=16
+else
+  set t_Co=256
+endif
 set copyindent    " copy the previous indentation on autoindenting
 set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
 set showmatch     " set show matching parenthesis
@@ -157,14 +164,7 @@ augroup fasd
   autocmd BufWinEnter,BufFilePost * call s:fasd_update()
 augroup END
 
-
 let g:airline_theme = 'purify'
-let b:ale_linters = ['flake8', 'pylint', 'jq']
-let g:deoplete#sources#jedi#enable_typeinfo = 1
-
-source $HOME/.config/nvim/config.vim
-source $HOME/.config/nvim/shortcuts.vim
-source $HOME/.config/nvim/plug.vim
 
 " allow opening file in current neovim instance from terminal
 if has('nvim')

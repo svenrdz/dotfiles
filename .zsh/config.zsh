@@ -9,6 +9,9 @@ export GPG_TTY=$(tty)
 if [[ -n $WSLENV ]]; then
   export NEOVIM_WIN_DIR='/mnt/c/tools/neovim/Neovim'
   export PATH="$NEOVIM_WIN_DIR/bin:$PATH"
+  export PATH="$HOME/repos/Nim/bin:$PATH"
+  export PATH="$HOME/.nimble/bin:$PATH"
+  source $HOME/.cargo/env
 fi
 
 # pyenv setup

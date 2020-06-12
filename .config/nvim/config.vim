@@ -47,61 +47,88 @@ augroup END
 
 
 """"""""""""""""""""""""""""""""""""""""""
-" TAB completion done right (with snips) "
+"       asyncomplete registration        "
 """"""""""""""""""""""""""""""""""""""""""
 
-let g:SuperTabClosePreviewOnPopupClose = 1
-" Don't map any tabs, I'll do it later "
-let g:UltiSnipsExpandTrigger = '<NOP>'
-let g:UltiSnipsJumpForwardTrigger = '<NOP>'
-let g:UltiSnipsJumpBackwardTrigger = '<NOP>'
-let g:SuperTabMappingForward = '<NOP>'
-let g:SuperTabMappingBackward = '<NOP>'
-" Don't unmap my mappings
-let g:UltiSnipsMappingsToIgnore = [ "SmartTab", "SmartShiftTab" ]
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
-" Make <CR> smart
-let g:ulti_expand_res = 0
-function! SmartNewline()
-  if pumvisible()
-    " if in completion menu - just close it and leave the cursor at the
-    " end of the completion
-    return deoplete#smart_close_popup() . "\<CR>"
-  else
-    " otherwise, just do an "enter"
-    return "\<return>"
-  endif
-endfunction
-inoremap <return> <C-R>=SmartNewline()<CR>
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <CR>    pumvisible() ? asyncomplete#close_popup() . "\<CR>" : "\<CR>"
 
-" Enable tabbing and shift-tabbing through list of results
-function! g:SmartTab()
-  if pumvisible()
-    return SuperTab("p")
-  else
-    return ''
-  endif
-endfunction
-inoremap <silent> <tab> <C-R>=g:SmartTab()<cr>
-snoremap <silent> <tab> <Esc>:call g:SmartTab()<cr>
 
-function! g:SmartShiftTab()
-  if pumvisible()
-    return SuperTab("n")
-  else
-    call UltiSnips#JumpBackwards()
-    if g:ulti_jump_backwards_res == 0
-      return SuperTab("n")
-    endif
-    return ''
-  endif
-endfunction
-inoremap <silent> <s-tab> <C-R>=g:SmartShiftTab()<cr>
-snoremap <silent> <s-tab> <Esc>:call g:SmartShiftTab()<cr>
-
-" Fix tab collision vim-wiki // deoplete
-let g:vimwiki_table_mappings = 0
-
+" neco
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
+    \ 'name': 'necovim',
+    \ 'whitelist': ['vim'],
+    \ 'completor': function('asyncomplete#sources#necovim#completor'),
+    \ }))
+" necosyntax
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#necosyntax#get_source_options({
+    \ 'name': 'necosyntax',
+    \ 'whitelist': ['*'],
+    \ 'completor': function('asyncomplete#sources#necosyntax#completor'),
+    \ }))
+" file
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+    \ 'name': 'file',
+    \ 'whitelist': ['*'],
+    \ 'priority': 10,
+    \ 'completor': function('asyncomplete#sources#file#completor')
+    \ }))
+" tags
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#tags#get_source_options({
+    \ 'name': 'tags',
+    \ 'whitelist': ['c'],
+    \ 'completor': function('asyncomplete#sources#tags#completor'),
+    \ 'config': {
+    \    'max_file_size': 50000000,
+    \  },
+    \ }))
+" buffer
+call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+    \ 'name': 'buffer',
+    \ 'whitelist': ['*'],
+    \ 'blacklist': ['go'],
+    \ 'completor': function('asyncomplete#sources#buffer#completor'),
+    \ 'config': {
+    \    'max_buffer_size': 5000000,
+    \  },
+    \ }))
+" nim
+au User asyncomplete_setup call asyncomplete#register_source({
+    \ 'name': 'nim',
+    \ 'whitelist': ['nim'],
+    \ 'completor': {opt, ctx -> nim#suggest#sug#GetAllCandidates({start, candidates -> asyncomplete#complete(opt['name'], ctx, start, candidates)})}
+    \ })
+" emoji
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#emoji#get_source_options({
+    \ 'name': 'emoji',
+    \ 'whitelist': ['*'],
+    \ 'completor': function('asyncomplete#sources#emoji#completor'),
+    \ }))
+" ale
+au User asyncomplete_setup call asyncomplete#ale#register_source({
+    \ 'name': 'reason',
+    \ 'linter': 'flow',
+    \ })
+" english
+au User asyncomplete_setup call asyncomplete#register_source({
+    \ 'name': 'look',
+    \ 'whitelist': ['text', 'markdown'],
+    \ 'completor': function('asyncomplete#sources#look#completor'),
+    \ })
+" lsp
+if executable('pyls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
+endif
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#ale#get_source_options({
+      \ 'priority': 10,
+      \ }))
 
 """"""""""""""""""""""""""""""""""""""""""
 "             Airline config             "
@@ -124,49 +151,6 @@ let g:airline#extensions#tabline#show_splits = 0
 let g:airline#extensions#tabline#formatter = 'default'
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#ale#enabled = 1
-
-" function! GitBranch() abort
-"   let l:branchname = system("git rev-parse --abbrev-ref HEAD 2>/dev/null
-"               \ | tr -d '\n'")
-"   return strlen(l:branchname) > 0 ? '#'.l:branchname : ''
-" endfunction
-
-" set statusline=%!ActiveStatus()                 " Style it
-
-" function! ActiveStatus() abort                  " When in the active window
-"   let statusline=""                           " Initialize it
-"   let statusline.="%3*%m"                     " Modified flag
-"   let statusline.="%6*%{expand('%:p:h')}/"    " Full-path to current buffer
-"   let statusline.="%4*%t"                     " File name
-"   let statusline.="%5*%{GitBranch()}"         " Show Git branch, if applicable
-"   let statusline.="%="                        " Switch to right-side
-"   let statusline.="%4*%y\ "                   " Filetype
-"   let statusline.="%3*"                       " Color change (see :hi)
-"   let statusline.="\|%4l\:%2c\|"              " Line and column
-"   let statusline.="%2*%{&spell?'[SPELL]':''}" " Spell flag
-"   let statusline.="%1*%r%0*"                  " Read-only flag
-"   return statusline
-" endfunction
-
-" function! PassiveStatus() abort                 " When in a non-active window
-"   let statusline=""                           " Initialize it
-"   let statusline.="%6*%m"                     " Modified flag
-"   let statusline.="%{expand('%:p:h')}/"       " Full-path to current buffer
-"   let statusline.="%t"                        " File name
-"   let statusline.="%{GitBranch()}"            " Show Git branch, if applicable
-"   let statusline.="%="                        " Switch to right-side
-"   let statusline.="%y\ "                      " Filetype
-"   let statusline.="\|%4l\:%2c\|"              " Line and column
-"   let statusline.="%{&spell?'[SPELL]':''}"    " Spell flag
-"   let statusline.="%r%0*"                     " Read-only flag
-"   return statusline
-" endfunction
-
-" augroup user_statusline                         " Change based on active window 
-"   autocmd!
-"   autocmd WinEnter * setlocal statusline=%!ActiveStatus()
-"   autocmd WinLeave * setlocal statusline=%!PassiveStatus()
-" augroup END
 
 
 """"""""""""""""""""""""""""""""""""""""""
@@ -192,6 +176,7 @@ let g:gitgutter_highlight_linenrs = 1
 
 " let g:ale_set_loclist = 0
 " let g:ale_set_quickfix = 1
+let b:ale_linters = ['flake8', 'pylint', 'jq']
 
 
 """"""""""""""""""""""""""""""""""""""""""
