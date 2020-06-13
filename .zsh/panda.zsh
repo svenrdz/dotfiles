@@ -104,7 +104,8 @@ if [[ -e $HOME/.panda-utils ]]; then
 fi
 
 ## monocle/ramen autocompletion
-eval $(register-python-argcomplete ramen)
+eval "$(register-python-argcomplete ramen)"
+eval "$(register-python-argcomplete wasabi)"
 
 ## pandavision debug level
 export VISION_DEBUG_LEVEL='200'
