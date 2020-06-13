@@ -1,42 +1,46 @@
-ZSH_DEBUG=false
-if [[ $ZSH_DEBUG == true ]]; then
+# ZSH_DEBUG=true
+if [[ -n $ZSH_DEBUG ]]; then
   zmodload zsh/zprof
 fi
+
 bindkey -v
 source "${HOME}/.zgen/zgen.zsh"
-source $HOME/.pyenv/versions/panda36/bin/activate
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-for rcfile in ~/.zsh/*.zsh; do
-  source $rcfile
-done
-
 # if the init script doesn't exist
 if ! zgen saved; then
   echo "Creating a zgen save"
 
-  zgen prezto
+  zgen load zsh-users/zsh-completions src
+  zgen load zsh-users/zsh-autosuggestions
 
-  # default
-  zgen prezto history
-  zgen prezto completion
+  zgen load mafredri/zsh-async
+  zgen load dfurnes/purer
 
-  # extra
-  zgen prezto docker
+  zgen load softmoth/zsh-vim-mode
+  zgen load mollifier/anyframe
+
   zgen load junegunn/fzf shell
   zgen load svenrdz/fzf-fasd
-  zgen load dfurnes/purer
-  zgen load laurenkt/zsh-vimto
 
-  # last
-  zgen prezto history-substring-search
+  zgen load zsh-users/history-substring-search
   zgen load zdharma/fast-syntax-highlighting
-  zgen prezto autosuggestions
 
   zgen save
 fi
 
-if [[ $ZSH_DEBUG == true ]]; then
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+[ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
+
+rcfiles=( env.local.zsh config.zsh jira.zsh panda.zsh alias.zsh )
+for rcfile in $rcfiles; do
+  rcfile=$HOME/.zsh/$rcfile
+  test -e $rcfile && source $rcfile
+done
+
+if [[ -n $ZSH_DEBUG ]]; then
   zprof
 fi
+
+# Created by `userpath` on 2020-05-08 16:42:50
+export PATH="$PATH:/home/sven/.local/bin"
+
+eval $(thefuck --alias)

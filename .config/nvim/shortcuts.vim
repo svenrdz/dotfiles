@@ -19,6 +19,7 @@ nmap <Leader>en <Esc>:BufExplorerHorizontalSplit<CR>
 nmap <Leader>q <Esc>:Bclose<CR>
 nmap <Leader>zz <Esc>:let &scrolloff = 999 - &scrolloff<CR>
 nmap <Leader>j <Esc>:tabnext<CR>
+nnoremap <Leader><Leader> <C-^>
 nmap <C-x> <Esc>:VimwikiToggleListItem<CR>
 nmap <C-f> <Esc>:BLines<CR>
 nmap ga <Esc>:GitGutterStageHunk<CR>

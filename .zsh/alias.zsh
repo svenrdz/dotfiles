@@ -8,7 +8,7 @@ alias gcm='git commit -m'
 alias gp='git push origin $(git-branch-current)'
 alias gss='git status -s'
 alias gco='git checkout'
-alias gb='git checkout -b '
+alias gb='git checkout -b'
 alias gpc='git push --set-upstream origin "$(git-branch-current 2> /dev/null)"'
 alias gsh='git stash'
 alias gshp='git stash pop'
@@ -32,12 +32,15 @@ alias ptp=ptpython
 
 ## cd
 alias cdg='cd `git rev-parse --show-toplevel`'
-alias cdr='cd ~/Pandascore/tools/ramen/'
-alias cdp='cd ~/Pandascore/pandavision/pndvsn'
-alias cdx='cd ~/Pandascore/models/xp_runner/'
+alias cdr='cd $HOME/Pandascore/tools/ramen/'
+alias cdp='cd $HOME/Pandascore/pandavision/pndvsn'
+alias cdx='cd $HOME/Pandascore/models/xp_runner/'
 alias cd.='cd ..'
 
 ## ls
+alias l='ls'
+alias la='ls -a'
+alias ll='ls -l'
 alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'' | less'
 
 ## qutebrowser

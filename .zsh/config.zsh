@@ -1,9 +1,28 @@
 ## general variables
 export HOMEBREW_NO_AUTO_UPDATE=1
-export PATH="/usr/local/lib/ruby/gems/2.5.0/bin:$PATH"
+# export PATH="/usr/local/lib/ruby/gems/2.5.0/bin:$PATH"
 export EDITOR='/usr/local/bin/nvim'
 export VISUAL='NVIM_LISTEN_ADDRESS=127.0.0.1:32500 nvr --remote-tab-silent'
 export GPG_TTY=$(tty)
+
+# WSL nvim setup
+if [[ -n $WSLENV ]]; then
+  export NEOVIM_WIN_DIR='/mnt/c/tools/neovim/Neovim'
+  export PATH="$NEOVIM_WIN_DIR/bin:$PATH"
+fi
+
+# pyenv setup
+export PYENV_ROOT="$HOME/.pyenv"
+if [[ -e $PYENV_ROOT ]]; then
+  export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+  if [[ -n $MAIN_VENV && $(pyenv version | sed 's/\s.*//') != $MAIN_VENV ]]; then
+    pyenv activate $MAIN_VENV
+  fi
+fi
+
+eval $(thefuck --alias)
 
 ## zsh variables
 export ZSH_THEME=""
@@ -11,7 +30,7 @@ export ZGEN_AUTOLOAD_COMPINIT=0
 export ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd)
 export HISTSIZE=10000
 export SAVEHIST=10000
-export HISTFILE=~/.zhistory
+export HISTFILE=$HOME/.zhistory
 
 ## OPTIONS
 # append into history file
@@ -34,6 +53,7 @@ export __fzf_fasd_default_completion=$fzf_default_completion
 
 ## zsh binds
 # forward through suggestion with <C-N>
+bindkey "^B" backward-kill-word
 bindkey "^N" forward-word
 # fzf completion with <C-V>
 bindkey '^V' fzf-completion
@@ -71,3 +91,9 @@ function git-branch-current {
   fi
 }
 
+# autocompletions
+autoload -U bashcompinit
+bashcompinit
+eval $(register-python-argcomplete pipx)
+
+cd $HOME

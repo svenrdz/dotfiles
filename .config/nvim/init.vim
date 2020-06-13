@@ -26,7 +26,7 @@ set fileformats+=mac
 set history=1000         " remember more commands and search history
 set undolevels=100       " use less levels of undo
 set undoreload=1000      " use less levels of reload
-set undodir=~/.config/nvim/undodir
+set undodir=$HOME/.config/nvim/undodir
 set updatetime=500       " defaults to 4000, better low for git gutter
 set tabpagemax=3
 set viminfo^=!
@@ -66,6 +66,8 @@ set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
 set wildignore+=*.swp,*~,._*
 set title
 
+let g:netrw_altfile = 1
+
 let g:bufExplorerDisableDefaultKeyMapping = 1
 let g:bclose_no_plugin_maps = 1
 
@@ -100,7 +102,7 @@ set foldmethod=syntax
 set foldlevel=3
 set foldlevelstart=3
 let g:vimwiki_folding='list'
-let g:python3_host_prog = '/Users/sven/.pyenv/versions/3.6.5/bin/python3'
+let g:python3_host_prog = $HOME.'/.pyenv/versions/'.$MAIN_VENV.'/bin/python3'
 set t_Co=256
 set copyindent    " copy the previous indentation on autoindenting
 set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
@@ -131,7 +133,7 @@ set listchars=tab:>.,trail:.,extends:#,nbsp:.
 colorscheme snazzy
 hi Normal ctermbg=NONE guibg=NONE
 set mouse=a
-set clipboard=unnamed
+set clipboard=unnamedplus
 
 " let g:AutoPairsFlyMode = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
@@ -166,5 +168,6 @@ source $HOME/.config/nvim/plug.vim
 
 " allow opening file in current neovim instance from terminal
 if has('nvim')
-  let $GIT_EDITOR = 'nvr -cc split --remote-wait'
+  let $GIT_EDITOR = 'nvr --remote-wait'
+  " let $GIT_EDITOR = 'nvr -cc split --remote-wait'
 endif
