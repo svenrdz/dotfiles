@@ -44,3 +44,9 @@ fi
 export PATH="$PATH:/home/sven/.local/bin"
 
 eval $(thefuck --alias)
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/sven/Pandascore/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/sven/Pandascore/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/sven/Pandascore/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/sven/Pandascore/google-cloud-sdk/completion.zsh.inc'; fi

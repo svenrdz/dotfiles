@@ -64,17 +64,16 @@ Plug 'junegunn/vim-slash'
 Plug 'majutsushi/tagbar'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'tmhedberg/SimpylFold', { 'for' : 'python' }
-Plug 'psf/black', { 'tag': '*' }
+Plug 'psf/black', { 'tag': '19.10b0' }
 let g:black_virtualenv = $HOME.'/.pyenv/versions/'.$MAIN_VENV
 let g:black_linelength = 80
 command! -bar Bl Black
 command! -bar FixJsonComma %s/,\(\n *[}|\]]\)/\1/g
 command! -bar FixJsonSpaces %s/    /  /g
 command! Json Bl|FixJsonComma|FixJsonSpaces|noh
-Plug 'elzr/vim-json', { 'for' : 'json' }
 
 " Preview markdown filesin browser using :Markdown
-Plug 'iamcco/markdown-preview.vim', { 'for' : 'markdown' }
+Plug 'iamcco/markdown-preview.vim'
 
 " Linter and quickfix
 Plug 'dense-analysis/ale'
@@ -103,6 +102,15 @@ Plug 'vimwiki/vimwiki'
 
 " nim
 Plug 'alaviss/nim.nvim'
+
+" json
+Plug 'elzr/vim-json', { 'for' : 'json' }
+
+" jsonnet
+Plug 'google/vim-jsonnet'
+" let g:jsonnet_fmt_options = '--no-sort-imports -n 2 --string-style s --comment-style h --no-pad-arrays --no-pad-objects'
+" let g:jsonnet_fmt_command = 'jsonnetfmt'
+let g:jsonnet_fmt_command = ':'
 
 " extempore
 " Plug 'timburgess/extempore.vim', { 'for' : 'extempore' }

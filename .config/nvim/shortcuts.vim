@@ -1,6 +1,6 @@
 " Leader mappings
 let mapleader = "\<Space>"
-nmap <Leader>l :ls<CR>:b<Space>
+nmap <Leader>l <Esc>:Black<CR>
 nmap <Leader><CR> :exe 'cd '.expand('%:h')<CR>
 nmap <Leader>n <Esc>:split<CR>
 nmap <Leader>v <Esc>:vsplit<CR>
