@@ -2,6 +2,10 @@
 "             ranger options             "
 """"""""""""""""""""""""""""""""""""""""""
 
+" macros
+let @i = 'Otry:joexcept:ipdkk>>'
+let @u = '<<kddjdj'
+
 " unmap default <Leader>f
 let g:ranger_map_keys = 0
 " use ranger when opening folder in vim
@@ -57,29 +61,39 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <CR>    pumvisible() ? asyncomplete#close_popup() . "\<CR>" : "\<CR>"
 
 
+" TabNine setup
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#tabnine#get_source_options({
+    \ 'name': 'tabnine',
+    \ 'allowlist': ['*'],
+    \ 'completor': function('asyncomplete#sources#tabnine#completor'),
+    \ 'config': {
+    \   'line_limit': 1000,
+    \   'max_num_result': 20,
+    \  },
+    \ }))
 " neco
 au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
     \ 'name': 'necovim',
-    \ 'whitelist': ['vim'],
+    \ 'allowlist': ['vim'],
     \ 'completor': function('asyncomplete#sources#necovim#completor'),
     \ }))
 " necosyntax
 au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#necosyntax#get_source_options({
     \ 'name': 'necosyntax',
-    \ 'whitelist': ['*'],
+    \ 'allowlist': ['*'],
     \ 'completor': function('asyncomplete#sources#necosyntax#completor'),
     \ }))
 " file
 au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
     \ 'name': 'file',
-    \ 'whitelist': ['*'],
+    \ 'allowlist': ['*'],
     \ 'priority': 10,
     \ 'completor': function('asyncomplete#sources#file#completor')
     \ }))
 " tags
 au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#tags#get_source_options({
     \ 'name': 'tags',
-    \ 'whitelist': ['c'],
+    \ 'allowlist': ['c'],
     \ 'completor': function('asyncomplete#sources#tags#completor'),
     \ 'config': {
     \    'max_file_size': 50000000,
@@ -88,8 +102,8 @@ au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#source
 " buffer
 call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
     \ 'name': 'buffer',
-    \ 'whitelist': ['*'],
-    \ 'blacklist': ['go'],
+    \ 'allowlist': ['*'],
+    \ 'blocklist': ['go'],
     \ 'completor': function('asyncomplete#sources#buffer#completor'),
     \ 'config': {
     \    'max_buffer_size': 5000000,
@@ -98,13 +112,13 @@ call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options
 " nim
 au User asyncomplete_setup call asyncomplete#register_source({
     \ 'name': 'nim',
-    \ 'whitelist': ['nim'],
+    \ 'allowlist': ['nim'],
     \ 'completor': {opt, ctx -> nim#suggest#sug#GetAllCandidates({start, candidates -> asyncomplete#complete(opt['name'], ctx, start, candidates)})}
     \ })
 " emoji
 au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#emoji#get_source_options({
     \ 'name': 'emoji',
-    \ 'whitelist': ['*'],
+    \ 'allowlist': ['*'],
     \ 'completor': function('asyncomplete#sources#emoji#completor'),
     \ }))
 " ale
@@ -115,15 +129,17 @@ au User asyncomplete_setup call asyncomplete#ale#register_source({
 " english
 au User asyncomplete_setup call asyncomplete#register_source({
     \ 'name': 'look',
-    \ 'whitelist': ['text', 'markdown'],
+    \ 'allowlist': ['text', 'markdown'],
     \ 'completor': function('asyncomplete#sources#look#completor'),
     \ })
+
+
 " lsp
 if executable('pyls')
     au User lsp_setup call lsp#register_server({
         \ 'name': 'pyls',
         \ 'cmd': {server_info->['pyls']},
-        \ 'whitelist': ['python'],
+        \ 'allowlist': ['python'],
         \ })
 endif
 au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#ale#get_source_options({
@@ -174,9 +190,27 @@ let g:gitgutter_highlight_linenrs = 1
 "               ALE config               "
 """"""""""""""""""""""""""""""""""""""""""
 
-" let g:ale_set_loclist = 0
-" let g:ale_set_quickfix = 1
-let b:ale_linters = ['flake8', 'pylint', 'jq']
+let g:ale_sign_error                  = '✘'
+let g:ale_sign_warning                = '⚠'
+highlight ALEErrorSign ctermbg        =NONE ctermfg=red
+highlight ALEWarningSign ctermbg      =NONE ctermfg=yellow
+let g:ale_linters_explicit            = 1
+let g:ale_lint_on_text_changed        = 'normal'
+" let g:ale_lint_on_text_changed        = 'never'
+let g:ale_lint_on_enter               = 0
+let g:ale_lint_on_save                = 1
+let g:ale_fix_on_save                 = 1
+
+let g:ale_linters = {
+\   'python': ['flake8', 'pylint'],
+\   'json': ['jq'],
+\   'nim': ['nimlsp', 'nimcheck']
+\}
+
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'nim': ['nimpretty']
+\}
 
 
 """"""""""""""""""""""""""""""""""""""""""

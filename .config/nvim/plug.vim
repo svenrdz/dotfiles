@@ -93,9 +93,8 @@ Plug 'prabirshrestha/asyncomplete-emoji.vim'
 Plug 'prabirshrestha/asyncomplete-necovim.vim'
 Plug 'prabirshrestha/asyncomplete-necosyntax.vim'
 Plug 'andreypopp/asyncomplete-ale.vim'
-Plug 'tsufeki/asyncomplete-fuzzy-match', {
-    \ 'do': 'cargo build --release',
-    \ }
+Plug 'tsufeki/asyncomplete-fuzzy-match', {'do': 'cargo build --release'}
+Plug 'kitagry/asyncomplete-tabnine.vim', {'do': './install.sh'}
 
 " vimwiki
 Plug 'vimwiki/vimwiki'
